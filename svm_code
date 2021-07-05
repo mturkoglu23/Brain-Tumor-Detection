@@ -1,9 +1,11 @@
 ........................... Ready SVM code ............................................
 
-load rr
-load tt
+load rr %% rr represents training and test sets.
 WP =new_feat;
 WT=Y1;
+total_number = 3064;
+percent=0.8;
+tt=round(percent*total_number);
 Trn(1:tt,:)   = WP(rr(1:tt),:);
 Trn_label(1:tt,:)   = WT(rr(1:tt),:);
 
