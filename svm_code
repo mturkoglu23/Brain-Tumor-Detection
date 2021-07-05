@@ -1,0 +1,27 @@
+........................... Ready SVM code ............................................
+
+load rr
+load tt
+WP =new_feat;
+WT=Y1;
+Trn(1:tt,:)   = WP(rr(1:tt),:);
+Trn_label(1:tt,:)   = WT(rr(1:tt),:);
+
+Test= WP(rr(tt+1:end),:);
+Tst_label= WT(rr(tt+1:end),:);
+
+featuresTrain=Trn;
+YTrain=Trn_label;
+featuresTest=Test;
+YTest=Tst_label;
+template = templateSVM(...
+    'KernelFunction', 'polynomial', ...
+    'PolynomialOrder',3, ...
+    'KernelScale', 'auto', ...
+    'BoxConstraint', 1, ...
+    'Standardize', true);
+classifier = fitcecoc(featuresTrain,YTrain,...
+    'Learners', template,...
+    'Coding', 'onevsall');
+[YPred,score] = predict(classifier,featuresTest);
+accuracy = mean(YPred == YTest)*100
